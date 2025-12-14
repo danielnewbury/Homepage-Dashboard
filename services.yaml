@@ -1,0 +1,147 @@
+- Media:
+    - Plex:
+        href: https://plex.newbury.inthearea.party
+        icon: plex
+    - Audiobookshelf:
+        href: https://audiobooks.newbury.inthearea.party
+        icon: audiobookshelf
+    - Tautulli:
+        href: https://tautulli.newbury.inthearea.party
+        icon: tautulli
+    - Overseerr:
+        href: https://overseerr.newbury.inthearea.party
+        icon: overseerr
+
+- Arr:
+    - Sonarr:
+        href: https://sonarr.newbury.inthearea.party
+        icon: sonarr
+        widgets:
+          - prometheus:
+              label: CPU
+              query: rate(container_cpu_usage_seconds_total{container="sonarr"}[1m])
+              unit: cores
+          - prometheus:
+              label: Memory
+              query: container_memory_usage_bytes{container="sonarr"}
+              unit: bytes
+    - Radarr:
+        href: https://radarr.newbury.inthearea.party
+        icon: radarr
+        widgets:
+          - prometheus:
+              label: CPU
+              query: rate(container_cpu_usage_seconds_total{container="radarr"}[1m])
+              unit: cores
+          - prometheus:
+              label: Memory
+              query: container_memory_usage_bytes{container="radarr"}
+              unit: bytes
+    - Lidarr:
+        href: https://lidarr.newbury.inthearea.party
+        icon: lidarr
+        widgets:
+          - prometheus:
+              label: CPU
+              query: rate(container_cpu_usage_seconds_total{container="lidarr"}[1m])
+              unit: cores
+          - prometheus:
+              label: Memory
+              query: container_memory_usage_bytes{container="lidarr"}
+              unit: bytes
+    - Readarr:
+        href: https://readarr.newbury.inthearea.party
+        icon: readarr
+        widgets:
+          - prometheus:
+              label: CPU
+              query: rate(container_cpu_usage_seconds_total{container="readarr"}[1m])
+              unit: cores
+          - prometheus:
+              label: Memory
+              query: container_memory_usage_bytes{container="readarr"}
+              unit: bytes
+    - Readarr-Audio:
+        href: https://readarr-audio.newbury.inthearea.party
+        icon: readarr
+        widgets:
+          - prometheus:
+              label: CPU
+              query: rate(container_cpu_usage_seconds_total{container="readarr-audio"}[1m])
+              unit: cores
+          - prometheus:
+              label: Memory
+              query: container_memory_usage_bytes{container="readarr-audio"}
+              unit: bytes
+    - Prowlarr:
+        href: https://prowlarr.newbury.inthearea.party
+        icon: prowlarr
+        widgets:
+          - prometheus:
+              label: CPU
+              query: rate(container_cpu_usage_seconds_total{container="prowlarr"}[1m])
+              unit: cores
+          - prometheus:
+              label: Memory
+              query: container_memory_usage_bytes{container="prowlarr"}
+              unit: bytes
+
+- Downloads:
+    - Gluetun:
+        href: http://192.168.1.177:8388
+        icon: vpn
+        widgets:
+          - prometheus:
+              label: RX
+              query: rate(container_network_receive_bytes_total{container="gluetun"}[1m])
+              unit: B/s
+          - prometheus:
+              label: TX
+              query: rate(container_network_transmit_bytes_total{container="gluetun"}[1m])
+              unit: B/s
+    - qBittorrent:
+        href: https://qb.newbury.inthearea.party
+        icon: qbittorrent
+        widgets:
+          - prometheus:
+              label: RX
+              query: rate(container_network_receive_bytes_total{container="qbittorrent"}[1m])
+              unit: B/s
+    - Dozzle:
+        href: https://dozzle.newbury.inthearea.party
+        icon: logs
+      
+
+- Monitoring:
+    - Grafana:
+        href: "https://grafana.newbury.inthearea.party"
+        icon: grafana
+        widgets:
+          - prometheus:
+              label: Uptime
+              query: probe_success{job="blackbox", instance="https://grafana.newbury.inthearea.party"}
+    - Prometheus:
+        href: "https://prometheus.newbury.inthearea.party"
+        icon: prometheus
+        widgets:
+          - prometheus:
+              label: Uptime
+              query: probe_success{job="blackbox", instance="https://prometheus.newbury.inthearea.party"}
+    - Alertmanager:
+        href: https://alertmanager.newbury.inthearea.party
+        icon: alertmanager
+    - Netdata:
+        href: http://192.168.1.177:19999
+        icon: netdata
+
+- Infrastructure:
+    - cAdvisor:
+        icon: docker
+    - Node-Exporter:
+        icon: cpu
+    - Blackbox-Exporter:
+        icon: uptime
+    - Loki:
+        icon: logs
+    - Promtail:
+        icon: logs

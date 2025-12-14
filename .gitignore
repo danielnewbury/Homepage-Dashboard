@@ -1,0 +1,15 @@
+
+---
+
+## 🚫 `.gitignore`
+
+```gitignore
+# Optional local overrides
+.env
+
+# Editor junk
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store

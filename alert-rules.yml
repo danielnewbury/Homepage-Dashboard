@@ -1,0 +1,76 @@
+groups:
+  - name: external-uptime
+    rules:
+      - alert: ExternalServiceDown
+        expr: probe_success{job="blackbox"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "External service down"
+          description: "{{ $labels.instance }} is unreachable from the internet"
+
+  - name: containers
+    rules:
+      - alert: ContainerUnhealthy
+        expr: container_health_status{status="unhealthy"} == 1
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container unhealthy"
+          description: "Container {{ $labels.container }} is unhealthy on {{ $labels.instance }}"
+
+      - alert: ContainerRestartingFrequently
+        expr: increase(container_restart_count[10m]) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Container restarting frequently"
+          description: "Container {{ $labels.container }} restarted more than 3 times in 10 minutes"
+
+  - name: host-resources
+    rules:
+      - alert: DiskSpaceLow
+        expr: |
+          (node_filesystem_avail_bytes{mountpoint="/"} /
+           node_filesystem_size_bytes{mountpoint="/"}) < 0.15
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Disk space low"
+          description: "Root filesystem has less than 15% free space"
+
+      - alert: HighCPUUsage
+        expr: |
+          (100 - avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 85
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage has been above 85% for 10 minutes"
+
+      - alert: HighMemoryUsage
+        expr: |
+          (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) > 0.90
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage above 90% for 10 minutes"
+
+  - name: vpn
+    rules:
+      - alert: VPNTrafficStopped
+        expr: |
+          rate(container_network_receive_bytes_total{container="gluetun"}[5m]) == 0
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "VPN traffic stopped"
+          description: "No inbound traffic detected on Gluetun for 10 minutes"

@@ -1,0 +1,15 @@
+title: Media Server
+theme: dark
+color: slate
+
+layout:
+  Media:
+    columns: 4
+  Arr:
+    columns: 6
+  Downloads:
+    columns: 4
+  Monitoring:
+    columns: 4
+  Infrastructure:
+    columns: 6
