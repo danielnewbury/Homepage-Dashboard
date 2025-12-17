@@ -13,3 +13,8 @@
 
 # OS junk
 .DS_Store
+
+
+# secrets
+secrets.env
+secrets.env-*

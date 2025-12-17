@@ -1,0 +1,66 @@
+/* Make offline services unmissable */
+.service-card.offline {
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.8);
+  background-color: #2A1414 !important;
+}
+
+/* Monitoring section emphasis */
+.services-group:nth-child(1) {
+  border-left: 3px solid #E74C3C;
+  padding-left: 12px;
+}
+
+/* Compact mode for big stacks */
+.service-card {
+  padding: 10px !important;
+}
+
+/* HARD FAIL: stopped or unhealthy */
+.service-card.offline {
+  background-color: #2A1414 !important;
+  border: 2px solid #E74C3C !important;
+  box-shadow: 0 0 12px rgba(231, 76, 60, 0.8);
+}
+
+/* WARNING: restarting / unknown */
+.service-card.unknown {
+  background-color: #2A1F0F !important;
+  border: 2px dashed #F39C12 !important;
+}
+
+/* Healthy services fade slightly */
+.service-card.online {
+  opacity: 0.92;
+}
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 8px rgba(231, 76, 60, 0.6); }
+  50% { box-shadow: 0 0 18px rgba(231, 76, 60, 1); }
+  100% { box-shadow: 0 0 8px rgba(231, 76, 60, 0.6); }
+}
+
+.service-card.offline {
+  animation: pulse-red 1.6s infinite;
+}
+
+.service-card.offline::before {
+  content: "⚠ SERVICE DOWN";
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  color: #FFD6D6;
+  margin-bottom: 6px;
+}
+
+/* ALERT INDICATOR — TOP PRIORITY */
+.service-card.offline:has(.service-title:contains("Alerts")) {
+  background-color: #3A0F0F !important;
+  border: 3px solid #FF3B3B !important;
+  box-shadow: 0 0 25px rgba(255, 59, 59, 1);
+  animation: pulse-red 1.2s infinite;
+}
+
+@keyframes pulse-red {
+  0% { box-shadow: 0 0 10px rgba(255, 59, 59, 0.6); }
+  50% { box-shadow: 0 0 28px rgba(255, 59, 59, 1); }
+  100% { box-shadow: 0 0 10px rgba(255, 59, 59, 0.6); }
+}

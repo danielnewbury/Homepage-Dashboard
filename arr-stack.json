@@ -2,33 +2,20 @@
     - Plex:
         href: https://plex.newbury.inthearea.party
         icon: plex
-        container: plex
-        description: Media server (streams & transcodes)
-
     - Audiobookshelf:
         href: https://audiobooks.newbury.inthearea.party
         icon: audiobookshelf
-        container: audiobookshelf_audiobookshelf_1
-        description: Audiobooks & podcasts server
-
     - Tautulli:
         href: https://tautulli.newbury.inthearea.party
         icon: tautulli
-        container: tautulli
-        description: Plex monitoring & statistics
-
     - Overseerr:
         href: https://overseerr.newbury.inthearea.party
         icon: overseerr
-        container: overseerr
-        description: Media requests & approvals
-
 
 - Arr:
     - Sonarr:
         href: https://sonarr.newbury.inthearea.party
         icon: sonarr
-        container: sonarr
         description: Grafana → Arr Stack dashboard
         widgets:
           - prometheus:
@@ -39,12 +26,9 @@
               label: Memory
               query: container_memory_usage_bytes{container="sonarr"}
               unit: bytes
-
     - Radarr:
         href: https://radarr.newbury.inthearea.party
         icon: radarr
-        container: radarr
-        description: Grafana → Arr Stack dashboard
         widgets:
           - prometheus:
               label: CPU
@@ -54,12 +38,9 @@
               label: Memory
               query: container_memory_usage_bytes{container="radarr"}
               unit: bytes
-
     - Lidarr:
         href: https://lidarr.newbury.inthearea.party
         icon: lidarr
-        container: lidarr
-        description: Grafana → Arr Stack dashboard
         widgets:
           - prometheus:
               label: CPU
@@ -69,12 +50,9 @@
               label: Memory
               query: container_memory_usage_bytes{container="lidarr"}
               unit: bytes
-
     - Readarr:
         href: https://readarr.newbury.inthearea.party
         icon: readarr
-        container: readarr
-        description: Grafana → Arr Stack dashboard
         widgets:
           - prometheus:
               label: CPU
@@ -84,12 +62,9 @@
               label: Memory
               query: container_memory_usage_bytes{container="readarr"}
               unit: bytes
-
     - Readarr-Audio:
         href: https://readarr-audio.newbury.inthearea.party
         icon: readarr
-        container: readarr-audio
-        description: Grafana → Arr Stack dashboard (audio)
         widgets:
           - prometheus:
               label: CPU
@@ -99,12 +74,9 @@
               label: Memory
               query: container_memory_usage_bytes{container="readarr-audio"}
               unit: bytes
-
     - Prowlarr:
         href: https://prowlarr.newbury.inthearea.party
         icon: prowlarr
-        container: prowlarr
-        description: Indexer management (Arr stack)
         widgets:
           - prometheus:
               label: CPU
@@ -115,13 +87,10 @@
               query: container_memory_usage_bytes{container="prowlarr"}
               unit: bytes
 
-
 - Downloads:
     - Gluetun:
         href: http://192.168.1.177:8388
         icon: vpn
-        container: gluetun
-        description: VPN tunnel & traffic gateway
         widgets:
           - prometheus:
               label: RX
@@ -131,81 +100,49 @@
               label: TX
               query: rate(container_network_transmit_bytes_total{container="gluetun"}[1m])
               unit: B/s
-
     - qBittorrent:
         href: https://qb.newbury.inthearea.party
         icon: qbittorrent
-        container: qbittorrent
-        description: Torrent client (via VPN)
         widgets:
           - prometheus:
               label: RX
               query: rate(container_network_receive_bytes_total{container="qbittorrent"}[1m])
               unit: B/s
-
     - Dozzle:
         href: https://dozzle.newbury.inthearea.party
         icon: logs
-        container: dozzle
-        description: Live Docker logs viewer
       
 
 - Monitoring:
     - Grafana:
-        href: https://grafana.newbury.inthearea.party
+        href: "https://grafana.newbury.inthearea.party"
         icon: grafana
-        container: grafana
-        description: Metrics dashboards & visualisation
         widgets:
           - prometheus:
               label: Uptime
               query: probe_success{job="blackbox", instance="https://grafana.newbury.inthearea.party"}
-
     - Prometheus:
-        href: https://prometheus.newbury.inthearea.party
+        href: "https://prometheus.newbury.inthearea.party"
         icon: prometheus
-        container: prometheus
-        description: Metrics collection & alert rules
         widgets:
           - prometheus:
               label: Uptime
               query: probe_success{job="blackbox", instance="https://prometheus.newbury.inthearea.party"}
-
     - Alertmanager:
         href: https://alertmanager.newbury.inthearea.party
         icon: alertmanager
-        container: alertmanager
-        description: Alert routing & notifications
-
     - Netdata:
         href: http://192.168.1.177:19999
         icon: netdata
-        container: netdata
-        description: Real-time system monitoring
-
 
 - Infrastructure:
     - cAdvisor:
         icon: docker
-        container: cadvisor
-        description: Container resource metrics
-
     - Node-Exporter:
         icon: cpu
-        container: node_exporter
-        description: Host-level system metrics
-
     - Blackbox-Exporter:
         icon: uptime
-        container: blackbox_exporter
-        description: External uptime probing
-
     - Loki:
         icon: logs
-        container: loki
-        description: Log aggregation backend
-
     - Promtail:
         icon: logs
-        container: promtail
-        description: Log shipping agent

@@ -1,0 +1,34 @@
+services:
+  alert-indicator-warning:
+    image: nginx:alpine
+    container_name: alert-indicator-warning
+    restart: unless-stopped
+    volumes:
+      - ./alert-indicator/warning:/usr/share/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "test", "-f", "/usr/share/nginx/html/OK"]
+      interval: 10s
+      timeout: 2s
+      retries: 1
+    labels:
+      - homepage.group=Monitoring
+      - homepage.name=⚠ Warnings
+      - homepage.icon=alert
+      - homepage.weight=1
+
+  alert-indicator-critical:
+    image: nginx:alpine
+    container_name: alert-indicator-critical
+    restart: unless-stopped
+    volumes:
+      - ./alert-indicator/critical:/usr/share/nginx/html:ro
+    healthcheck:
+      test: ["CMD", "test", "-f", "/usr/share/nginx/html/OK"]
+      interval: 10s
+      timeout: 2s
+      retries: 1
+    labels:
+      - homepage.group=Monitoring
+      - homepage.name=🚨 Critical Alerts
+      - homepage.icon=alert
+      - homepage.weight=0

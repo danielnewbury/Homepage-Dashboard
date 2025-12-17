@@ -1,0 +1,99 @@
+- Monitoring:
+    - Grafana:
+        icon: grafana
+        href: http://grafana
+        widget:
+          type: grafana
+          url: http://grafana:3000
+    - Prometheus:
+        icon: prometheus
+        href: http://prometheus
+        widget:
+          type: prometheus
+          url: http://prometheus:9090
+    - Alertmanager:
+        icon: alertmanager
+        href: http://alertmanager
+    - Loki:
+        icon: loki
+        href: http://loki
+    - Node Exporter:
+        icon: node-exporter
+    - cAdvisor:
+        icon: docker
+    - Netdata:
+        icon: netdata
+        href: http://netdata
+- Infrastructure:
+    - Pi-hole 1:
+        icon: pihole
+        href: http://pihole-1/admin
+        widget:
+          type: pihole
+          url: http://pihole-1
+          key: piholeapikey
+    - Pi-hole 2:
+        icon: pihole
+        href: http://pihole-2/admin
+    - Pi-hole RPi:
+        icon: raspberry-pi
+        href: http://pihole-rpi/admin
+- Media:
+    - Plex:
+        icon: plex
+        href: http://plex
+        widget:
+          type: plex
+          url: http://plex:32400
+          key: plexapikey
+    - Tautulli:
+        icon: tautulli
+        href: http://tautulli
+        widget:
+          type: tautulli
+          url: http://tautulli:8181
+          key: tautulliapikey
+    - Overseerr:
+        icon: overseerr
+        href: http://overseerr
+- Arr:
+    - Sonarr:
+        icon: sonarr
+        href: http://sonarr
+        widget:
+          type: sonarr
+          url: http://sonarr:8989
+          key: sonarrapikey
+    - Radarr:
+        icon: radarr
+        href: http://radarr
+        widget:
+          type: radarr
+          url: http://radarr:7878
+          key: radarrapikey
+    - Lidarr:
+        icon: lidarr
+        href: http://lidarr
+        widget:
+          type: lidarr
+          url: http://lidarr:8686
+          key: lidarrapikey
+    - Prowlarr:
+        icon: prowlarr
+        href: http://prowlarr
+        widget:
+          type: prowlarr
+          url: http://prowlarr:9696
+          key: prowlarrapikey
+- Downloads:
+    - Gluetun:
+        icon: vpn
+        href: http://gluetun
+    - qBittorrent:
+        icon: qbittorrent
+        href: http://qbittorrent
+        widget:
+          type: qbittorrent
+          url: http://qbittorrent:8080
+          username: daniel
+          password: Ca53yjn2219

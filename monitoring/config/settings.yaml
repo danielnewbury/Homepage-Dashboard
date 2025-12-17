@@ -1,0 +1,49 @@
+title: newbury.inthearea.party
+
+theme: dark
+color: slate
+
+headerStyle: boxed
+statusStyle: dot
+
+fiveColumns: false
+useEqualHeights: true
+
+hideErrors: false
+showStats: true
+hideVersion: true
+
+background:
+  image: ""
+  blur: sm
+  opacity: 0.15
+
+providers:
+  openweathermap: openweathermapapikeyhere
+  docker:
+    host: unix:///var/run/docker.sock
+
+
+layout:
+  Monitoring:
+    order: 1
+    style: column
+  Infrastructure:
+    order: 2
+    style: column
+  Media:
+    order: 3
+    style: row
+    columns: 3
+  Arr:
+    order: 4
+    style: row
+    columns: 3
+  Downloads:
+    order: 5
+    style: row
+    columns: 2
+  Developer:
+    order: 6
+    style: row
+    columns: 3

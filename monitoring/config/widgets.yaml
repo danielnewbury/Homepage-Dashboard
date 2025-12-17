@@ -1,0 +1,54 @@
+- resources:
+    label: System
+    cpu: true
+    memory: true
+    disk: /
+
+- search:
+    provider: duckduckgo
+    target: _blank
+
+- datetime:
+    locale: en-GB
+    format:
+      dateStyle: short
+      timeStyle: short
+      hour12: false
+
+- weather:
+    label: Newbury
+    latitude: 51.4014
+    longitude: -1.3231
+    units: metric
+    provider: openweathermap
+
+- docker:
+    host: unix:///var/run/docker.sock
+
+- glances:
+    url: http://glances:61208
+
+- prometheus:
+    url: http://prometheus:9090
+
+- grafana:
+    url: http://grafana:3000
+    username: admin
+    password: changeme
+
+- pihole:
+    url: http://pihole-1
+    apiKey: piholeapikey
+    fields:
+      - queries
+      - blocked
+      - blocked_percent
+
+- uptimekuma:
+    url: http://uptime-kuma:3001
+    slug: status
+
+- openmeteo:
+    label: Forecast
+    latitude: 51.4014
+    longitude: -1.3231

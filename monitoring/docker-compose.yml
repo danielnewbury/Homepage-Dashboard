@@ -1,0 +1,142 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v0.8.7
+    container_name: homepage
+    restart: unless-stopped
+
+    ports:
+      - "10366:3000"
+
+    volumes:
+      # Core config
+      - ./config:/app/config
+
+      # Docker socket for auto-generated services + health
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+    environment:
+      # Security: run as your host user
+      - PUID=1000
+      - PGID=1000
+
+      # Logs
+      - LOG_LEVEL=info
+
+      # Time & locale (UK)
+      - TZ=Europe/London
+      - LANG=en_GB.UTF-8
+
+      - HOMEPAGE_ALLOWED_HOSTS=*
+
+    networks:
+      - monitoring
+
+    labels:
+      # Optional: surface Homepage itself on Homepage
+      - homepage.group=Infrastructure
+      - homepage.name=Homepage
+      - homepage.icon=homepage
+      - homepage.href=http://homepage:3000
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3000"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    restart: unless-stopped
+
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+      - "--log.level=info"
+
+    ports:
+      - "9093:9093"
+
+    volumes:
+      # Config
+      - ./alertmanager/alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+
+      # Persistent state (silences, notification log)
+      - ./alertmanager_data:/alertmanager
+
+    environment:
+      - TZ=Europe/London
+
+    networks:
+      - monitoring
+
+    labels:
+      # Homepage auto-discovery
+      - homepage.group=Monitoring
+      - homepage.name=Alertmanager
+      - homepage.icon=alertmanager
+      - homepage.href=http://alertmanager:9093
+      - homepage.weight=5
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9093/-/healthy"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+
+  alert-indicator:
+    image: nginx:alpine
+    container_name: alert-indicator
+    restart: unless-stopped
+    networks:
+      - monitoring
+    volumes:
+      - ./alert-indicator:/usr/share/nginx/html:ro
+
+    healthcheck:
+      test: ["CMD", "test", "-f", "/usr/share/nginx/html/OK"]
+      interval: 10s
+      timeout: 2s
+      retries: 1
+
+    labels:
+      - homepage.group=Monitoring
+      - homepage.name=🚨 Alerts
+      - homepage.icon=alert
+      - homepage.description=Active Prometheus Alerts
+      - homepage.weight=0
+
+  alert-webhook:
+    image: python:3.12-alpine
+    container_name: alert-webhook
+    restart: unless-stopped
+    networks:
+      - monitoring
+
+    volumes:
+      - ./alert-webhook:/app
+      - ./alert-indicator:/indicator
+
+    working_dir: /app
+
+    command: >
+      sh -c "pip install --no-cache-dir flask &&
+             python app.py"
+
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:5001/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+    labels:
+      - homepage.group=Monitoring
+      - homepage.name=Alert Webhook
+      - homepage.icon=webhook
+      - homepage.weight=2
+
+networks:
+  monitoring:
+    external: true
+    name: monitoring_monitoring
